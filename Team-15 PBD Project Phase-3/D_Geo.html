@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyBc0Zmn2I4Y8dslAFGSS7CG7J6EjNPDOcQ &callback=initMap"></script>
+    <script src="assets/js/gmaps.js"></script>
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <style type="text/css">
+        #map {
+            width: 700px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script type="text/javascript" charset="utf-8">
+
+    var latarray = [];
+    var longarray = [];
+    var namearray = [];
+    var counter = 0;
+    var map;
+
+    $.getJSON('geo7.json', function(json) {
+
+        for (var i = 0; i < json.length; i++) {
+            counter=counter+1;
+            latarray[i]= parseFloat(json[i].latt);
+            longarray[i]= parseFloat(json[i].long);
+            namearray[i]= json[i].name;
+        }
+    });
+
+    $(document).ready(function() {
+    map = new GMaps({
+        el: '#map',
+        lat: 37.2582812,
+        lng: -104.6538703,
+        Zoom: 4
+    });
+    for (var i=0; i < counter ;i++){
+
+        map.addMarker({
+            lat: latarray[i],
+            lng: longarray[i],
+            title: namearray[i],
+            infoWindow:{
+                content: '<h3>User Name:<br/></h3>'+namearray[i]
+            }
+        });
+    }
+    });
+</script>
+</body>
+</html>

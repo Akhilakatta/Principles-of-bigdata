@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+	<head>
+		<title>Team-15 PBD Project</title>
+		<meta charset="utf-8" />
+
+		<script src="assets/js/gmaps.js"></script>
+		<script src="//d3js.org/d3.v3.min.js"></script>
+
+		<script src="assets/js/jquery-3.1.1.min.js"></script>
+		<script sync src="https://platform.twitter.com/widgets.js"></script>
+
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="query1.html"></script>
+		<script src="assets/js/canvasjs.min.js"></script>
+		<script src="assets/js/source.js"></script>
+        <script src="assets/js/Geo.js"></script>
+		<script src="assets/js/test1.js"></script>
+		<script async defer
+				src="https://maps.googleapis.com/maps/api/js?key= AIzaSyAx6LX9WwRHa5F6VcE3Cb3REhNQkq4gQbw &callback=initMap">
+		</script>
+        <script>
+            var script = document.createElement('script');
+            script.src = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        </script>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <style>
+            #map {
+                height: 600px;
+                width: 85%;
+            }
+        </style>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<h1  id="title">Team-15</h1>
+							<p>#HurricaneMatthew</p>
+
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+
+							<ul>
+								<li><a href="#Home" id="Home-link" class="skel-layers-ignoreHref"><span class="icon fa-home">Home</span></a></li>
+								<!--<li><a href="#Source" id="Source-link" class="skel-layers-ignoreHref"><span class="icon fa-apple">Source of Tweets</span></a></li>-->
+								<li><a href="#Geo_Location" id="Geo_Location-link" class="skel-layers-ignoreHref"><span class="icon fa-map">Geo Location</span></a></li>
+								<li><a href="#Top_Retweet" id="Top Retweet" class="skel-layers-ignoreHref"><span class="icon fa-retweet" >Top Retweet</span></a></li>
+								<li><a href="#Top_Languages" id="Top Languages" class="skel-layers-ignoreHref"><span class="icon fa-book" >Top Languages</span></a></li>
+								<li><a href="#Top_Hashtags" id="Top Hashtags" class="skel-layers-ignoreHref"><span class="icon fa-hashtag" >Top Hashtags</span></a></li>
+								<li><a href="#Top_Time_Zone" id="Top Time Zone" class="skel-layers-ignoreHref"><span class="icon fa-globe" >Top Time Zone</span></a></li>
+
+							</ul>
+						</nav>
+					<div id="line"></div>
+					<div id="logo1">
+						<h2 id="des" > <br/><br/>Team Members</h2>
+						<p id="des1"> - Khalid Almalki. <br/> - Ahmed Albishri. <br/> - Megha Nagabhushan. <br/> - Akhila Katta. </p>
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Home -->
+					<section id="Home" class="one dark cover">
+						<div class="container">
+
+							<div id="logo11">
+								<h2> Welcom to Team-15 PBD Project</h2></div>
+
+
+							<p id="logo111" style="color: #ff0e15"> #Hurricane_Matthew: </p>
+							<p id="info" class="alt2" style="text-align: left" >Hurricane Matthew was a very powerful, long-lived and deadly tropical cyclone which became
+								the first Category 5 Atlantic hurricane since Hurricane Felix in 2007. The thirteenth named
+								storm, fifth hurricane and second major hurricane of the active 2016 Atlantic hurricane season,
+								Matthew wrought widespread destruction and catastrophic loss of life during its journey across
+								the Western Atlantic, including parts of Haiti, Cuba, Dominican Republic and Lucayan
+								Archipelago, the southeastern  United States, and the Canadian Maritimes.</p>
+
+							<a href="#Geo_Location" class="button scrolly">See First Query</a>
+
+						</div>
+					</section>
+
+
+
+
+
+
+				<!-- Geo_Location -->
+					<section id="Geo_Location" class="two">
+						<div class="container">
+							<header>
+								<h2 id="GeoCSS">Geo location</h2>
+							<p id="GeoCSS1">Using Google Map API.</p>
+							</header>
+						</div>
+
+						<div id="map" style="min-width: 310px; height: 500px; max-width: 800px; margin: 0 auto"></div>
+						<script type="text/javascript" charset="utf-8">
+
+                            var latarray = [];
+                            var longarray = [];
+                            var namearray = [];
+                            var ScreenNAmeArray = [];
+                            var counter = 0;
+                            var map;
+
+                            $.getJSON('geo8.json', function(json) {
+
+                                for (var i = 0; i < json.length; i++) {
+                                    counter=counter+1;
+                                    latarray[i]= parseFloat(json[i].latt);
+                                    longarray[i]= parseFloat(json[i].long);
+                                    namearray[i]= json[i].name;
+                                    ScreenNAmeArray[i]= json[i].screen_name;
+
+                                }
+                            });
+
+                            $(document).ready(function() {
+                                map = new GMaps({
+                                    el: '#map',
+                                    lat: 37.2582812,
+                                    lng: -104.6538703,
+                                    Zoom: 4
+                                });
+                                for (var i=0; i < counter ;i++){
+
+                                    map.addMarker({
+                                        lat: latarray[i],
+                                        lng: longarray[i],
+                                        title: namearray[i],
+                                        infoWindow:{
+                                            content: '<h3>User Name:<br/></h3><a target=_blank href=https://twitter.com/'+ScreenNameArray[i]+'>'+namearray[i]+'</a>'
+
+                                        }
+                                    });
+                                }
+                            });
+						</script>
+
+					</section>
+
+
+				<!---- Top retweet----->
+
+				<section id="Top_Retweet" class="two">
+					<div class="container">
+
+
+						<header>
+							<h2>Top Retweet</h2>
+						</header>
+
+
+						<div id="d1">
+							<ul style="list-style-type: none;
+								margin: 0;
+								padding: 0;
+								overflow: hidden;">
+								<li style="float: left">
+									<div id="1"></div>
+								</li>
+								<li style="float: right">
+									<div id="2"> </div>
+								</li>
+								<li style="float: left">
+									<div id="3"> </div>
+								</li>
+								<div id="demo">
+									<script type="text/javascript" charset="utf-8">
+
+                                        $(document).ready(function()
+                                        {
+                                            $.getJSON('data/toprt.json', function(json) {
+                                                //var id1= json[2].id;
+                                                var d = 0;
+                                                ///
+                                                for (var i = 0; i < json.length-2; i++) {
+                                                    d=d+1;
+                                                    var tweet1 = document.getElementById(d);
+                                                    twttr.widgets.createTweet(
+                                                        json[i].id, tweet1,
+                                                        {
+                                                            conversation : 'none',    // or all
+                                                            cards        : 'visible',  // or hidden
+                                                            linkColor    : '#cc0000', // default is blue
+                                                            theme        : 'light'    // or dark
+                                                        })
+                                                        .then (function (ex) {
+                                                            ex.contentDocument.querySelector(".footer").style.display = "none";
+                                                        });
+                                                }
+                                            });
+                                        });
+
+									</script>
+								</div>
+								</li>
+							</ul>
+						</div>
+
+
+					</div>
+
+				</section>
+
+
+				<!-- Top languages -->
+				<section id="Top_Languages" class="four">
+					<div class="container">
+
+						<header>
+							<h2>Top Languages</h2>
+						</header>
+
+						<p>In this query we will show the top languages </p>
+
+						<div id="langcode">
+							<svg width="550" height="600"></svg>
+						</div>
+
+
+					</div>
+
+					<style>
+						text {
+							font: 8px sans-serif bold;
+							text-anchor: middle;
+							font-size: 50%;
+
+
+						}
+					</style>
+
+					<script>
+
+                        $(document).ready(function()
+                        {
+                            var svg = d3.select("svg"),
+                                width = +svg.attr("width");
+
+                            var format = d3.format(",d");
+
+                            var color = d3.scaleOrdinal(d3.schemeCategory20c);
+
+                            var pack = d3.pack()
+                                .size([width, width])
+                                .padding(30.0);
+
+                            d3.csv("lang.csv", function(d) {
+                                d.cnt = +d.cnt;
+                                if (d.cnt) return d;
+                            }, function(error, classes) {
+                                if (error) throw error;
+
+                                var root = d3.hierarchy({children: classes})
+                                    .sum(function(d) { return d.cnt; })
+                                    .each(function(d) {
+                                        if (lang = d.data.lang) {
+                                            var lang, i = lang.lastIndexOf(".");
+                                            d.lang = lang;
+                                            d.package = lang.slice(0, i);
+                                            d.class = lang.slice(i + 1);
+                                        }
+                                    });
+
+                                var node = svg.selectAll(".node")
+                                    .data(pack(root).leaves())
+                                    .enter().append("g")
+                                    .attr("class", "node")
+                                    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+                                node.append("circle")
+                                    .attr("lang", function(d) { return d.lang; })
+                                    .attr("r", function(d) { return d.r; })
+                                    .style("fill", function(d) { return color(d.package); });
+
+                                node.append("clipPath")
+                                    .attr("lang", function(d) { return "clip-" + d.lang; })
+                                    .append("use")
+                                    .attr("xlink:href", function(d) { return "#" + d.lang; });
+
+                                node.append("text")
+                                    .attr("clip-path", function(d) { return "url(#clip-" + d.lang + ")"; })
+                                    .selectAll("tspan")
+                                    .data(function(d) { return d.class.split(/(?=[A-Z][^A-Z])/g); })
+                                    .enter().append("tspan")
+                                    .attr("x", 0)
+                                    .attr("y", function(d, i, nodes) { return 13 + (i - nodes.length / 2 - 0.5) * 10; })
+                                    .text(function(d) { return d; });
+
+                                node.append("title")
+                                    .text(function(d) { return d.lang + "\n" + format(d.cnt); });
+                            });
+                        });
+
+					</script>
+				</section>
+
+
+
+				<!---- Top_Hashtags----->
+
+				<section id="Top_Hashtags" class="two">
+					<div class="container">
+
+
+						<header>
+							<h2>Top Hashtags</h2>
+						</header>
+
+						<form action= "query3.html" target="_blank"
+                            >
+							<input type="submit" value="Show Top Hashtags" />
+						</form>
+
+
+
+					</div>
+				</section>
+
+
+				<!---- Top_Time_Zone----->
+
+				<section id="Top_Time_Zone" class="five">
+					<div class="container">
+
+
+						<header>
+							<h2>Top Time Zone</h2>
+						</header>
+						<p>In this query we will show the top time zone </p>
+
+						<style>
+							.arc text {
+
+								font: 12px sans-serif;
+								font-family: Mishafi;
+								text-anchor: middle;
+
+							}
+							.arc path {
+								stroke: #ffffff;
+							}
+
+						</style>
+
+
+						<script id="t2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto" >
+
+
+
+                            var width = 1600,
+                                height = 400,
+
+                                radius = Math.min(width, height) / 2;
+                            var color = d3.scale.ordinal()
+                                .range(["#98abc5", "#ffa262", "#1bbfc5", "#78be44", "00FFFF"]);
+                            var arc = d3.svg.arc()
+                                .outerRadius(radius - 10)
+                                .innerRadius(radius - 70);
+                            var pie = d3.layout.pie()
+                                .sort(null)
+                                .value(function (d) {
+                                    return d.cnt;
+                                });
+                            var svg = d3.select("body").append("svg")
+                                .attr("width", width)
+                                .attr("height", height)
+                                .append("g")
+                                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                            d3.csv("timezone.csv", type, function (error, data) {
+                                if (error) throw error;
+                                var g = svg.selectAll(".arc")
+                                    .data(pie(data))
+                                    .enter().append("g")
+                                    .attr("class", "arc");
+                                g.append("path")
+                                    .attr("d", arc)
+                                    .style("fill", function (d) {
+                                        return color(d.data.time_zone);
+                                    });
+                                g.append("text")
+                                    .attr("transform", function (d) {
+                                        return "translate(" + arc.centroid(d) + ")";
+                                    })
+                                    .attr("dy", ".35em")
+                                    .text(function (d) {
+                                        return d.data.time_zone;
+                                    });
+                            })
+                            ;
+                            function type(d) {
+                                d.cnt = +d.cnt;
+                                return d;
+                            }
+
+						</script>
+					</div>
+				</section>
+
+			</div>
+
+
+
+
+
+
+		<!-- Footer -->
+
+			<div id="footer">
+
+				<!-- Copyright -->
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollzer.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/html">
+<header>
+    <script src="assets/js/r.js"></script>
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
+    <script sync src="https://platform.twitter.com/widgets.js"></script>
+
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: none;
+            color: black;
+            text-align: center;
+            padding: 16px;
+        }
+        li a:hover {
+            background-color: #111111;
+        }
+    </style>
+
+</header>
+
+<body>
+
+<div>
+<ul>
+    <li title="a">
+        <div id="1"></div>
+    </li>
+    <li>
+        <div id="2"> </div>
+    </li>
+    <li>
+        <div id="3"> </div>
+    </li>
+        <div id="demo">
+            <script type="text/javascript" charset="utf-8">
+
+                $(document).ready(function()
+                {
+                    $.getJSON('data/toprt.json', function(json) {
+                        //var id1= json[2].id;
+                        var d = 0;
+                        ///
+                        for (var i = 0; i < json.length-2; i++) {
+                            d=d+1;
+                            var tweet1 = document.getElementById(d);
+                            twttr.widgets.createTweet(
+                                json[i].id, tweet1,
+                                {
+                                    conversation : 'none',    // or all
+                                    cards        : 'visible',  // or hidden
+                                    linkColor    : '#cc0000', // default is blue
+                                    theme        : 'light'    // or dark
+                                })
+                                .then (function (ex) {
+                                    ex.contentDocument.querySelector(".footer").style.display = "none";
+                                });
+                        }
+                    });
+                });
+
+            </script>
+            </div>
+    </li>
+</ul>
+</div>
+
+</body>
+</html>
